@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     // Email advokatici
     await transporter.sendMail({
-      from: `"Sajt - Ana Petrović Advokat" <${process.env.GMAIL_USER}>`,
+      from: `"Sajt - Maja Mrdjen Advokat" <${process.env.GMAIL_USER}>`,
       to: process.env.LAWYER_EMAIL,
       replyTo: email,
       subject: `📋 Nova poruka: ${subject || "Zakazivanje termina"} — ${name}`,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
               <table width="600" cellpadding="0" cellspacing="0" style="margin:0 auto;background:#161411;border:1px solid #b8952a;">
                 <tr>
                   <td style="padding:40px;border-bottom:1px solid #2e2b26;">
-                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;font-family:'DM Sans',sans-serif;">Ana Petrović | Advokat</p>
+                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;font-family:'DM Sans',sans-serif;"> Maja Mrdjen | Advokat</p>
                     <h1 style="color:#d4af65;font-size:26px;margin:0;font-weight:600;">Nova poruka sa sajta</h1>
                   </td>
                 </tr>
