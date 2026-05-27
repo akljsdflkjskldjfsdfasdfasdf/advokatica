@@ -872,19 +872,19 @@ export default function Page() {
         </div>
 
         {/* Background large text */}
-        <div className="hero-bg-text absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-[2]">
-          <span
-            className="font-display font-bold uppercase leading-none"
-            style={{
-              fontSize: "clamp(8rem,22vw,27rem)",
-              color: "rgba(201,168,76,.04)",
-              whiteSpace: "nowrap",
-              letterSpacing: "-0.04em",
-            }}
-          >
-            ADVOKAT
-          </span>
-        </div>
+      <div className="hero-bg-text absolute inset-0 hidden md:flex items-center justify-center pointer-events-none select-none overflow-hidden z-[2]">
+  <span
+    className="font-display font-bold uppercase leading-none"
+    style={{
+      fontSize: "clamp(8rem,22vw,27rem)",
+      color: "rgba(201,168,76,.04)",
+      whiteSpace: "nowrap",
+      letterSpacing: "-0.04em",
+    }}
+  >
+    ADVOKAT
+  </span>
+</div>
 
         {/* Center glow */}
         <div
