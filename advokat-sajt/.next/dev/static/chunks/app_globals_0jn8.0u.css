@@ -568,10 +568,6 @@
     margin-top: calc(var(--spacing) * 12);
   }
 
-  .mt-16 {
-    margin-top: calc(var(--spacing) * 16);
-  }
-
   .mr-\[\.28em\] {
     margin-right: .28em;
   }
@@ -1484,12 +1480,6 @@
   @media (min-width: 64rem) {
     .lg\:block {
       display: block;
-    }
-  }
-
-  @media (min-width: 64rem) {
-    .lg\:hidden {
-      display: none;
     }
   }
 

@@ -3030,52 +3030,6 @@ function Contact() {
                                     fileName: "[project]/app/components/Contact.jsx",
                                     lineNumber: 165,
                                     columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "relative mt-16 lg:hidden",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "photo-frame-inner",
-                                            style: {
-                                                zIndex: 10
-                                            }
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 199,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "photo-frame-outer"
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 200,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                            src: "/kancelarija.jpg",
-                                            alt: "Advokatska kancelarija Mrđen — Nikole Tesle 88, Žabalj",
-                                            className: "w-full object-cover",
-                                            style: {
-                                                aspectRatio: "4 / 3",
-                                                objectPosition: "center 40%"
-                                            }
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 201,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "photo-gold-dot"
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 207,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/app/components/Contact.jsx",
-                                    lineNumber: 198,
-                                    columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
@@ -3095,7 +3049,7 @@ function Contact() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Contact.jsx",
-                                        lineNumber: 214,
+                                        lineNumber: 202,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3105,7 +3059,7 @@ function Contact() {
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Contact.jsx",
-                                        lineNumber: 215,
+                                        lineNumber: 203,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3121,7 +3075,7 @@ function Contact() {
                                                     children: "✓"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 222,
+                                                    lineNumber: 210,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -3132,7 +3086,7 @@ function Contact() {
                                                     children: "Poruka primljena"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 223,
+                                                    lineNumber: 211,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3143,7 +3097,7 @@ function Contact() {
                                                     children: "Javiću Vam se u roku od 24 časa. Hvala na poverenju."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 229,
+                                                    lineNumber: 217,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3153,18 +3107,18 @@ function Contact() {
                                                         children: "Pošalji novu poruku"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/components/Contact.jsx",
-                                                        lineNumber: 239,
+                                                        lineNumber: 227,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 235,
+                                                    lineNumber: 223,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 221,
+                                            lineNumber: 209,
                                             columnNumber: 19
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                                             onSubmit: handleSubmit,
@@ -3180,7 +3134,7 @@ function Contact() {
                                                                     children: "Ime i prezime *"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 246,
+                                                                    lineNumber: 234,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3195,13 +3149,13 @@ function Contact() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 247,
+                                                                    lineNumber: 235,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 245,
+                                                            lineNumber: 233,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3211,7 +3165,7 @@ function Contact() {
                                                                     children: "Email adresa *"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 259,
+                                                                    lineNumber: 247,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3226,19 +3180,19 @@ function Contact() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 260,
+                                                                    lineNumber: 248,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 258,
+                                                            lineNumber: 246,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 244,
+                                                    lineNumber: 232,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3251,7 +3205,7 @@ function Contact() {
                                                                     children: "Broj telefona"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 275,
+                                                                    lineNumber: 263,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3265,13 +3219,13 @@ function Contact() {
                                                                         })
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 276,
+                                                                    lineNumber: 264,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 274,
+                                                            lineNumber: 262,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3281,7 +3235,7 @@ function Contact() {
                                                                     children: "Oblast prava"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 287,
+                                                                    lineNumber: 275,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -3302,7 +3256,7 @@ function Contact() {
                                                                             children: "Odaberite oblast"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                                            lineNumber: 303,
+                                                                            lineNumber: 291,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         SERVICES.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3313,7 +3267,7 @@ function Contact() {
                                                                                 children: s.title
                                                                             }, s.title, false, {
                                                                                 fileName: "[project]/app/components/Contact.jsx",
-                                                                                lineNumber: 307,
+                                                                                lineNumber: 295,
                                                                                 columnNumber: 29
                                                                             }, this)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3324,25 +3278,25 @@ function Contact() {
                                                                             children: "Ostalo"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                                            lineNumber: 315,
+                                                                            lineNumber: 303,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 288,
+                                                                    lineNumber: 276,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 286,
+                                                            lineNumber: 274,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 273,
+                                                    lineNumber: 261,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3352,7 +3306,7 @@ function Contact() {
                                                             children: "Željeni datum termina"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 326,
+                                                            lineNumber: 314,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3369,13 +3323,13 @@ function Contact() {
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 329,
+                                                            lineNumber: 317,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 325,
+                                                    lineNumber: 313,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3385,7 +3339,7 @@ function Contact() {
                                                             children: "Kratki opis slučaja *"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 342,
+                                                            lineNumber: 330,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -3400,13 +3354,13 @@ function Contact() {
                                                                 })
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 345,
+                                                            lineNumber: 333,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 341,
+                                                    lineNumber: 329,
                                                     columnNumber: 21
                                                 }, this),
                                                 formState === "error" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3417,7 +3371,7 @@ function Contact() {
                                                     children: "Greška pri slanju. Pokušajte ponovo ili nas kontaktirajte telefonom."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 358,
+                                                    lineNumber: 346,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3431,7 +3385,7 @@ function Contact() {
                                                             children: "* Obavezna polja"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 356,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3447,45 +3401,45 @@ function Contact() {
                                                                     children: formState === "loading" ? "Šalje se..." : "Pošalji poruku"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                                    lineNumber: 381,
+                                                                    lineNumber: 369,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/Contact.jsx",
-                                                                lineNumber: 375,
+                                                                lineNumber: 363,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/Contact.jsx",
-                                                            lineNumber: 374,
+                                                            lineNumber: 362,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/Contact.jsx",
-                                                    lineNumber: 367,
+                                                    lineNumber: 355,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/components/Contact.jsx",
-                                            lineNumber: 243,
+                                            lineNumber: 231,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Contact.jsx",
-                                        lineNumber: 216,
+                                        lineNumber: 204,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/Contact.jsx",
-                                lineNumber: 213,
+                                lineNumber: 201,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/components/Contact.jsx",
-                            lineNumber: 212,
+                            lineNumber: 200,
                             columnNumber: 11
                         }, this)
                     ]

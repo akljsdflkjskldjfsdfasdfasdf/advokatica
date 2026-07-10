@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     // Email advokatici
     await transporter.sendMail({
-      from: `"Sajt - Ana Petrović Advokat" <${process.env.GMAIL_USER}>`,
+      from: `"Sajt - Maja Mrđen Advokat" <${process.env.GMAIL_USER}>`,
       to: process.env.LAWYER_EMAIL,
       replyTo: email,
       subject: `📋 Nova poruka: ${subject || "Zakazivanje termina"} — ${name}`,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
               <table width="600" cellpadding="0" cellspacing="0" style="margin:0 auto;background:#161411;border:1px solid #b8952a;">
                 <tr>
                   <td style="padding:40px;border-bottom:1px solid #2e2b26;">
-                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;font-family:'DM Sans',sans-serif;">Ana Petrović | Advokat</p>
+                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;font-family:'DM Sans',sans-serif;">Maja Mrđen | Advokat</p>
                     <h1 style="color:#d4af65;font-size:26px;margin:0;font-weight:600;">Nova poruka sa sajta</h1>
                   </td>
                 </tr>
@@ -102,9 +102,9 @@ export async function POST(req: NextRequest) {
 
     // Potvrdan email klijentu
     await transporter.sendMail({
-      from: `"Ana Petrović | Advokat" <${process.env.GMAIL_USER}>`,
+      from: `"Maja Mrđen | Advokat" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: `Potvrda prijema poruke — Ana Petrović Advokat`,
+      subject: `Potvrda prijema poruke — Maja Mrđen Advokat`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
               <table width="600" cellpadding="0" cellspacing="0" style="margin:0 auto;background:#161411;border:1px solid #b8952a;">
                 <tr>
                   <td style="padding:40px;border-bottom:1px solid #2e2b26;">
-                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;">Ana Petrović | Advokat</p>
+                    <p style="color:#b8952a;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;margin:0 0 12px 0;">Maja Mrđen | Advokat</p>
                     <h1 style="color:#d4af65;font-size:26px;margin:0;font-weight:600;">Hvala na poruci, ${name.split(" ")[0]}.</h1>
                   </td>
                 </tr>
@@ -124,8 +124,8 @@ export async function POST(req: NextRequest) {
                     <p style="color:#f0ece4;font-size:18px;line-height:1.8;margin:0 0 20px 0;">Vaša poruka je uspešno primljena. Javiću Vam se u najkraćem mogućem roku, najkasnije u roku od <strong style="color:#d4af65;">24 časa</strong> u toku radnog dana.</p>
                     <p style="color:#c8c0b0;font-size:16px;line-height:1.8;margin:0;">Za hitne predmete, možete me kontaktirati direktno telefonom.</p>
                     <hr style="border:none;border-top:1px solid #2e2b26;margin:30px 0;">
-                    <p style="color:#b8952a;font-size:13px;margin:0;">Ana Petrović, advokat<br>
-                    <span style="color:#c8c0b0;">Beograd, Srbija</span></p>
+                    <p style="color:#b8952a;font-size:13px;margin:0;">Maja Mrđen, advokat<br>
+                    <span style="color:#c8c0b0;">Nikole Tesle 88, Žabalj</span></p>
                   </td>
                 </tr>
               </table>

@@ -194,18 +194,6 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Kancelarija — posebna slika (samo mobilni) */}
-            <div className="relative mt-16 lg:hidden">
-              <div className="photo-frame-inner" style={{ zIndex: 10 }} />
-              <div className="photo-frame-outer" />
-              <img
-                src="/kancelarija.jpg"
-                alt="Advokatska kancelarija Mrđen — Nikole Tesle 88, Žabalj"
-                className="w-full object-cover"
-                style={{ aspectRatio: "4 / 3", objectPosition: "center 40%" }}
-              />
-              <div className="photo-gold-dot" />
-            </div>
           </div>
 
           {/* Form */}
