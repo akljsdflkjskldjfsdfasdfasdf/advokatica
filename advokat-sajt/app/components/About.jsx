@@ -99,8 +99,8 @@ export default function About() {
                     MM
                   </div>
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop"
-                    alt="Advokatica Maja Mrdjen"
+                    src="/maja-mrden-portret.jpg"
+                    alt="Advokatica Maja Mrđen"
                     className="absolute inset-0 w-full h-full object-cover object-top"
                   />
                 </div>
@@ -128,7 +128,7 @@ export default function About() {
               style={{ color: "var(--cream-muted)", fontSize: "1.15rem" }}
             >
               <p>
-                Advokat Maja Mrdjen pruža pravnu zaštitu fizičkim i pravnim
+                Advokat Maja Mrđen pruža pravnu zaštitu fizičkim i pravnim
                 licima, zastupajući njihove interese pred sudovima i drugim
                 nadležnim organima. Posebnu oblast rada čine krivično i
                 prekršajno pravo, dok iskustvo obuhvata i parnične, izvršne,

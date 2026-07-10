@@ -80,7 +80,7 @@ export default function Quote() {
               color: "var(--gold-vivid)",
             }}
           >
-            Maja Mrdjen
+            Maja Mrđen
           </span>
           <div className="w-8 h-px bg-gold" />
         </div>

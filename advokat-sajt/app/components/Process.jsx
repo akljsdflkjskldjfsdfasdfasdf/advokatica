@@ -8,7 +8,7 @@ const STEPS = [
   {
     num: "I",
     title: "Konsultacija",
-    desc: "Besplatan prvi razgovor u kome pažljivo analiziramo Vaš slučaj i procenjujemo sve pravne mogućnosti.",
+    desc: "Prvi razgovor u kome pažljivo analiziramo Vaš slučaj i procenjujemo sve pravne mogućnosti.",
   },
   {
     num: "II",

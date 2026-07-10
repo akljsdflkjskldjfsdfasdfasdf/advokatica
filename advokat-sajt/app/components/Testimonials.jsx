@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const TESTIMONIALS = [
   {
     quote:
-      "Profesionalizam i posvećenost advokatice Mrdjen prevazišli su sva moja očekivanja. Krivični postupak koji je trajao godinama rešen je u naše korist. Beskrajno zahvalan.",
+      "Profesionalizam i posvećenost advokatice Mrđen prevazišli su sva moja očekivanja. Krivični postupak koji je trajao godinama rešen je u naše korist. Beskrajno zahvalan.",
     author: "Marko S.",
     detail: "Krivično pravo · 2023",
     stars: 5,
@@ -28,7 +28,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Nezakonit otkaz, mobing, sve je rešeno povoljno za mene uz minimalan stres. Advokatica Mrdjen je uvek dostupna i izuzetno jasno objašnjava svaki korak.",
+      "Nezakonit otkaz, mobing, sve je rešeno povoljno za mene uz minimalan stres. Advokatica Mrđen je uvek dostupna i izuzetno jasno objašnjava svaki korak.",
     author: "Jelena R.",
     detail: "Radno pravo · 2024",
     stars: 5,

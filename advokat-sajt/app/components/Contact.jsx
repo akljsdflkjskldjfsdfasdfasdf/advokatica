@@ -104,6 +104,25 @@ export default function Contact() {
       className="relative py-32 lg:py-44 overflow-hidden"
       style={{ background: "#070503" }}
     >
+      {/* Background photo — kancelarija u magli (samo desktop) */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none hidden lg:block"
+        style={{
+          backgroundImage: "url('/kancelarija.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 55%",
+          opacity: 0.5,
+          filter: "grayscale(25%)",
+        }}
+      />
+      {/* Dark overlay */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none hidden lg:block"
+        style={{
+          background:
+            "radial-gradient(ellipse 110% 100% at 50% 45%, rgba(7,5,3,0.3) 0%, rgba(7,5,3,0.82) 100%)",
+        }}
+      />
       <div
         className="section-glow absolute bottom-0 right-0 pointer-events-none"
         style={{
@@ -173,6 +192,19 @@ export default function Contact() {
                   </a>
                 </div>
               ))}
+            </div>
+
+            {/* Kancelarija — posebna slika (samo mobilni) */}
+            <div className="relative mt-16 lg:hidden">
+              <div className="photo-frame-inner" style={{ zIndex: 10 }} />
+              <div className="photo-frame-outer" />
+              <img
+                src="/kancelarija.jpg"
+                alt="Advokatska kancelarija Mrđen — Nikole Tesle 88, Žabalj"
+                className="w-full object-cover"
+                style={{ aspectRatio: "4 / 3", objectPosition: "center 40%" }}
+              />
+              <div className="photo-gold-dot" />
             </div>
           </div>
 
