@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -200,6 +200,8 @@ const SERVICES = [
 ];
 
 export default function Services() {
+  const sectionRef = useRef(null);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -268,7 +270,7 @@ export default function Services() {
           },
         );
       });
-    });
+    }, sectionRef); // samo elementi ove sekcije (ranije su se hvatali naslovi sa cele strane)
 
     return () => ctx.revert();
   }, []);
@@ -297,9 +299,10 @@ export default function Services() {
 
   return (
     <section
+      ref={sectionRef}
       id="usluge"
-      className="relative py-32 lg:py-30 overflow-hidden"
-      style={{ background: "rgba(242, 237, 228, 0.84)" }}
+      className="relative py-28 lg:py-32 overflow-hidden"
+      style={{ background: "#f4efe6" }}
     >
       {/* Suptilni zlatni glow odozgo */}
       <div
@@ -339,11 +342,12 @@ export default function Services() {
             <p
               className="fade-up mb-4"
               style={{
-                fontSize: ".625rem",
+                fontSize: ".8rem",
                 letterSpacing: ".22em",
                 textTransform: "uppercase",
-                color: "rgba(160,120,30,.8)",
-                fontFamily: "sans-serif",
+                color: "#8a6418",
+                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontWeight: 500,
               }}
             >
               Oblasti prakse
@@ -351,10 +355,10 @@ export default function Services() {
             <h2
               className="section-heading fade-up"
               style={{
-                fontSize: "clamp(2rem,4vw,3rem)",
+                fontSize: "clamp(2.2rem,4.2vw,3.4rem)",
                 color: "#1a1208",
-                fontWeight: 400,
-                lineHeight: 1.2,
+                fontWeight: 600,
+                lineHeight: 1.15,
               }}
             >
               Šta mogu
@@ -365,8 +369,8 @@ export default function Services() {
             </h2>
           </div>
           <p
-            className="fade-up text-base max-w-xs lg:text-right leading-relaxed"
-            style={{ color: "rgba(60,45,15,.5)", fontFamily: "sans-serif" }}
+            className="fade-up max-w-sm lg:text-right leading-relaxed"
+            style={{ color: "rgba(48,36,12,.82)", fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: "1.05rem" }}
           >
             Sveobuhvatna pravna zaštita u svim ključnim oblastima srpskog prava.
           </p>
@@ -379,16 +383,16 @@ export default function Services() {
               key={s.num}
               className="service-card group cursor-default relative overflow-hidden rounded-4xl"
               style={{
-                background: "#080601",
+                background: "#1f190f",
                 transition: "background .35s",
               }}
               onMouseMove={handleCardTilt}
               onMouseLeave={(e) => {
                 handleCardTiltReset(e);
-                e.currentTarget.style.background = "#080601";
+                e.currentTarget.style.background = "#1f190f";
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#0f0b01";
+                e.currentTarget.style.background = "#2a2214";
               }}
             >
               {/* Hover — zlatna linija na vrhu */}
@@ -414,25 +418,26 @@ export default function Services() {
                 <div className="flex items-start justify-between mb-5">
                   <span
                     style={{
-                      fontSize: ".6rem",
+                      fontSize: ".85rem",
                       letterSpacing: ".2em",
                       textTransform: "uppercase",
-                      color: "rgba(201,168,76,.35)",
-                      fontFamily: "sans-serif",
+                      color: "rgba(226,196,122,.9)",
+                      fontFamily: "'DM Sans', system-ui, sans-serif",
+                      fontWeight: 500,
                     }}
                   >
                     {s.num}
                   </span>
                   <span
                     style={{
-                      color: "rgba(201,168,76,.3)",
+                      color: "rgba(226,196,122,.85)",
                       transition: "color .35s",
                     }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = "rgba(201,168,76,.9)")
+                      (e.currentTarget.style.color = "#f0d060")
                     }
                     onMouseLeave={(e) =>
-                      (e.currentTarget.style.color = "rgba(201,168,76,.3)")
+                      (e.currentTarget.style.color = "rgba(226,196,122,.85)")
                     }
                   >
                     {s.icon}
@@ -444,16 +449,16 @@ export default function Services() {
                   className="mb-6 h-px"
                   style={{
                     background:
-                      "linear-gradient(to right, rgba(201,168,76,.2), transparent)",
+                      "linear-gradient(to right, rgba(201,168,76,.45), transparent)",
                   }}
                 />
 
                 {/* Naslov — zlatni */}
                 <h3
-                  className="font-display text-xl mb-4"
+                  className="font-display text-2xl mb-4"
                   style={{
-                    color: "#c9a84c",
-                    fontWeight: 400,
+                    color: "#e2c47a",
+                    fontWeight: 600,
                     letterSpacing: "-0.01em",
                     transition: "color .3s",
                   }}
@@ -461,7 +466,7 @@ export default function Services() {
                     (e.currentTarget.style.color = "#f0cc6a")
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#c9a84c")
+                    (e.currentTarget.style.color = "#e2c47a")
                   }
                 >
                   {s.title}
@@ -469,11 +474,12 @@ export default function Services() {
 
                 {/* Opis — beli sa blagim opacitetom */}
                 <p
-                  className="text-sm leading-relaxed flex-1"
+                  className="leading-relaxed flex-1"
                   style={{
-                    color: "rgba(255,248,230,.52)",
-                    fontFamily: "sans-serif",
-                    lineHeight: "1.75",
+                    color: "rgba(255,248,230,.9)",
+                    fontFamily: "'DM Sans', system-ui, sans-serif",
+                    fontSize: "1.02rem",
+                    lineHeight: "1.7",
                   }}
                 >
                   {s.desc}

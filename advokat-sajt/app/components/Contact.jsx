@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -24,8 +24,20 @@ export default function Contact() {
     subject: "",
     message: "",
     date: "",
+    website: "", // zamka za botove — čovek je ne vidi
   });
   const [formState, setFormState] = useState("idle");
+  const sectionRef = useRef(null);
+  const dateRef = useRef(null);
+
+  // najraniji termin = današnji datum po lokalnom vremenu; upisuje se u pregledaču (server ne zna
+  // vremensku zonu posetioca, a UTC datum posle ponoći ne bi bio tačan)
+  useEffect(() => {
+    if (!dateRef.current) return;
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    dateRef.current.min = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }, [formState]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -67,7 +79,7 @@ export default function Contact() {
           scrollTrigger: { trigger: ".contact-right", start: "top 82%" },
         },
       );
-    });
+    }, sectionRef); // samo elementi ove sekcije
 
     return () => ctx.revert();
   }, []);
@@ -91,6 +103,7 @@ export default function Contact() {
           subject: "",
           message: "",
           date: "",
+          website: "",
         });
       } else setFormState("error");
     } catch {
@@ -100,9 +113,10 @@ export default function Contact() {
 
   return (
     <section
+      ref={sectionRef}
       id="kontakt"
-      className="relative py-32 lg:py-44 overflow-hidden"
-      style={{ background: "#070503" }}
+      className="relative py-28 lg:py-36 overflow-hidden"
+      style={{ background: "#17140f" }}
     >
       {/* Background photo — kancelarija u magli (samo desktop) */}
       <div
@@ -111,8 +125,8 @@ export default function Contact() {
           backgroundImage: "url('/kancelarija.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 55%",
-          opacity: 0.5,
-          filter: "grayscale(25%)",
+          opacity: 0.6,
+          filter: "grayscale(20%)",
         }}
       />
       {/* Dark overlay */}
@@ -120,7 +134,7 @@ export default function Contact() {
         className="absolute inset-0 z-[1] pointer-events-none hidden lg:block"
         style={{
           background:
-            "radial-gradient(ellipse 110% 100% at 50% 45%, rgba(7,5,3,0.3) 0%, rgba(7,5,3,0.82) 100%)",
+            "radial-gradient(ellipse 110% 100% at 50% 45%, rgba(23,20,15,0.3) 0%, rgba(23,20,15,0.74) 100%)",
         }}
       />
       <div
@@ -172,7 +186,7 @@ export default function Contact() {
                 {
                   label: "Email",
                   value: "advokatmajamrdjen@gmail.com",
-                  href: "advokatmajamrdjen@gmail.com",
+                  href: "mailto:advokatmajamrdjen@gmail.com",
                 },
                 {
                   label: "Adresa",
@@ -182,14 +196,22 @@ export default function Contact() {
                 {
                   label: "Radno vreme",
                   value: "Radnim danima 9–16h, vikendom po potrebi klijenata",
-                  href: "#kontakt",
+                  href: null,
                 },
               ].map((item) => (
                 <div key={item.label} className="contact-detail">
                   <p>{item.label}</p>
-                  <a href={item.href} className="font-body text-lg">
-                    {item.value}
-                  </a>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="font-body text-lg"
+                      {...(item.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span className="contact-value font-body text-lg">{item.value}</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -222,13 +244,26 @@ export default function Contact() {
                     </p>
                     <button
                       onClick={() => setFormState("idle")}
-                      className="mt-8 btn-primary text-[10px]"
+                      className="mt-8 btn-primary"
                     >
                       <span>Pošalji novu poruku</span>
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-8">
+                    {/* zamka za botove: polje je van ekrana i preskače se tasterom Tab */}
+                    <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                      <label>
+                        Vaš sajt
+                        <input
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={formData.website}
+                          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                        />
+                      </label>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                       <div>
                         <label className="form-label">Ime i prezime *</label>
@@ -285,7 +320,7 @@ export default function Contact() {
                           style={{
                             color: formData.subject
                               ? "var(--cream)"
-                              : "rgba(208,198,176,.32)",
+                              : "rgba(230,223,207,.5)",
                           }}
                         >
                           <option value="" disabled hidden>
@@ -295,14 +330,14 @@ export default function Contact() {
                             <option
                               key={s.title}
                               value={s.title}
-                              style={{ background: "#0d0b08" }}
+                              style={{ background: "#1b1813" }}
                             >
                               {s.title}
                             </option>
                           ))}
                           <option
                             value="Ostalo"
-                            style={{ background: "#0d0b08" }}
+                            style={{ background: "#1b1813" }}
                           >
                             Ostalo
                           </option>
@@ -317,7 +352,7 @@ export default function Contact() {
                       <input
                         type="date"
                         className="input-field"
-                        min={new Date().toISOString().split("T")[0]}
+                        ref={dateRef}
                         value={formData.date}
                         onChange={(e) =>
                           setFormData({ ...formData, date: e.target.value })
@@ -344,7 +379,7 @@ export default function Contact() {
 
                     {formState === "error" && (
                       <p
-                        className="font-ui text-xs tracking-wide"
+                        className="font-ui text-sm tracking-wide"
                         style={{ color: "#f87171" }}
                       >
                         Greška pri slanju. Pokušajte ponovo ili nas
@@ -354,8 +389,8 @@ export default function Contact() {
 
                     <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center sm:justify-between gap-5 pt-2">
                       <p
-                        className="font-ui text-xs text-center sm:text-left"
-                        style={{ color: "rgba(208,198,176,.4)" }}
+                        className="font-ui text-sm text-center sm:text-left"
+                        style={{ color: "rgba(230,223,207,.65)" }}
                       >
                         * Obavezna polja
                       </p>
@@ -364,7 +399,6 @@ export default function Contact() {
                           type="submit"
                           disabled={formState === "loading"}
                           className="btn-primary w-full sm:w-auto text-center disabled:opacity-40 disabled:cursor-not-allowed"
-                          style={{ fontSize: ".6875rem" }}
                         >
                           <span>
                             {formState === "loading"

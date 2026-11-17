@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -35,29 +35,30 @@ const TESTIMONIALS = [
   },
 ];
 
-export default function Testimonials() {
-  const [activeDot, setActiveDot] = useState(0);
-  const carouselRef = useRef(null);
-  const trackRef = useRef(null);
+const Arrow = ({ dir }) => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    {dir === "left" ? <path d="M15 18l-6-6 6-6" /> : <path d="M9 18l6-6-6-6" />}
+  </svg>
+);
 
+export default function Testimonials() {
+  const sectionRef = useRef(null);
+  const trackRef = useRef(null);
+  /** Položaji na koje karusel može da stane (početak svake kartice, poslednji = kraj) */
+  const [stops, setStops] = useState([0]);
+  const [active, setActive] = useState(0);
+
+  // Animacije ulaska — samo unutar ove sekcije (ranije su hvatale elemente sa cele strane)
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
     const ctx = gsap.context(() => {
       gsap.utils.toArray(".section-glow").forEach((el) => {
         gsap.fromTo(
           el,
           { opacity: 0, scale: 0.88 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 1.6,
-            ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 85%" },
-          },
+          { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 85%" } },
         );
       });
-
       gsap.utils.toArray(".fade-up").forEach((el) => {
         gsap.fromTo(
           el,
@@ -67,15 +68,10 @@ export default function Testimonials() {
             y: 0,
             duration: 1.05,
             ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
+            scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
           },
         );
       });
-
       gsap.utils.toArray(".fade-right").forEach((el) => {
         gsap.fromTo(
           el,
@@ -85,107 +81,99 @@ export default function Testimonials() {
             x: 0,
             duration: 1.05,
             ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
+            scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
           },
         );
       });
-    });
-
+    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
-  // Drag scroll carousel
-  useEffect(() => {
-    const wrap = carouselRef.current;
+  /** Izmeri gde karusel može da stane (zavisi od širine ekrana) i koja je tačkica aktivna */
+  const measure = useCallback(() => {
     const track = trackRef.current;
-    if (!wrap || !track) return;
+    if (!track) return;
+    const max = track.scrollWidth - track.clientWidth;
+    const base = track.firstElementChild?.offsetLeft ?? 0;
+    const next = [];
+    for (const card of track.children) {
+      const left = Math.min(card.offsetLeft - base, max);
+      if (!next.length || left - next[next.length - 1] > 8) next.push(left);
+      if (left >= max) break;
+    }
+    setStops((prev) => (prev.length === next.length && prev.every((v, i) => Math.abs(v - next[i]) < 1) ? prev : next));
+    let nearest = 0;
+    next.forEach((v, i) => {
+      if (Math.abs(v - track.scrollLeft) < Math.abs(next[nearest] - track.scrollLeft)) nearest = i;
+    });
+    setActive(nearest);
+  }, []);
 
-    let isDragging = false;
-    let currentX = 0;
-    let targetX = 0;
-    let velX = 0;
-    let lastX = 0;
-    let rafId = 0;
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    measure();
+    track.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
 
-    const cardWidth = 436;
-
-    const clampX = (x) => {
-      const maxScroll = -(track.scrollWidth - wrap.clientWidth);
-      return Math.max(maxScroll, Math.min(0, x));
-    };
-
-    const updateDot = (x) => {
-      const idx = Math.round(Math.abs(x) / cardWidth);
-      setActiveDot(Math.min(idx, TESTIMONIALS.length - 1));
-    };
-
-    const loop = () => {
-      velX *= 0.88;
-      if (!isDragging) targetX += velX;
-      targetX = clampX(targetX);
-      currentX += (targetX - currentX) * 0.12;
-      track.style.transform = `translateX(${currentX}px)`;
-      updateDot(currentX);
-      if (Math.abs(velX) > 0.05 || Math.abs(targetX - currentX) > 0.1) {
-        rafId = requestAnimationFrame(loop);
-      }
-    };
-
+    // prevlačenje mišem na računaru (prst i točkić rade sami)
+    let drag = null;
     const onDown = (e) => {
-      isDragging = true;
-      cancelAnimationFrame(rafId);
-      wrap.classList.add("is-dragging");
-      lastX = "touches" in e ? e.touches[0].clientX : e.clientX;
-      velX = 0;
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft, moved: false };
     };
     const onMove = (e) => {
-      if (!isDragging) return;
-      const x = "touches" in e ? e.touches[0].clientX : e.clientX;
-      const dx = x - lastX;
-      velX = dx;
-      lastX = x;
-      targetX += dx;
-      currentX += dx * 0.85;
-      currentX = clampX(currentX);
-      targetX = clampX(targetX);
-      track.style.transform = `translateX(${currentX}px)`;
-      updateDot(currentX);
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) > 4) {
+        drag.moved = true;
+        track.classList.add("is-dragging");
+      }
+      if (drag.moved) track.scrollLeft = drag.left - dx;
     };
     const onUp = () => {
-      isDragging = false;
-      wrap.classList.remove("is-dragging");
-      rafId = requestAnimationFrame(loop);
+      if (!drag) return;
+      const moved = drag.moved;
+      drag = null;
+      track.classList.remove("is-dragging");
+      if (moved) {
+        // posle prevlačenja: zakači se za najbližu karticu
+        const max = track.scrollWidth - track.clientWidth;
+        const cards = [...track.children].map((c) => Math.min(c.offsetLeft - track.firstElementChild.offsetLeft, max));
+        const target = cards.reduce((a, b) => (Math.abs(b - track.scrollLeft) < Math.abs(a - track.scrollLeft) ? b : a), 0);
+        track.scrollTo({ left: target, behavior: "smooth" });
+      }
     };
-
-    wrap.addEventListener("mousedown", onDown);
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
-    wrap.addEventListener("touchstart", onDown, { passive: true });
-    wrap.addEventListener("touchmove", onMove, { passive: true });
-    wrap.addEventListener("touchend", onUp);
+    track.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      wrap.removeEventListener("mousedown", onDown);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
-      wrap.removeEventListener("touchstart", onDown);
-      wrap.removeEventListener("touchmove", onMove);
-      wrap.removeEventListener("touchend", onUp);
+      track.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+      track.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
     };
-  }, []);
+  }, [measure]);
+
+  const goTo = (i) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const idx = Math.max(0, Math.min(stops.length - 1, i));
+    track.scrollTo({ left: stops[idx], behavior: "smooth" });
+  };
+
+  const atStart = active === 0;
+  const atEnd = active >= stops.length - 1;
 
   return (
     <section
+      ref={sectionRef}
       id="recenzije"
-      className="relative py-32 lg:py-44 overflow-hidden"
+      className="relative py-28 lg:py-36 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(175deg, #1d1810 0%, #151009 50%, #1b1509 100%)",
+        background: "linear-gradient(175deg, #2a2317 0%, #211b12 50%, #282015 100%)",
       }}
     >
       <div
@@ -193,8 +181,7 @@ export default function Testimonials() {
         style={{
           width: "60vw",
           height: "40vw",
-          background:
-            "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.11) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.14) 0%, transparent 65%)",
         }}
       />
       <div
@@ -206,7 +193,7 @@ export default function Testimonials() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-8">
           <div>
             <p className="section-label fade-up mb-6">Recenzije klijenata</p>
             <h2 className="section-heading fade-up">
@@ -217,112 +204,113 @@ export default function Testimonials() {
               </em>
             </h2>
           </div>
-          <div className="fade-right text-right hidden lg:block">
-            <div
-              className="font-display text-5xl"
-              style={{ color: "var(--gold-vivid)" }}
-            >
-              5.0
+          <div className="fade-right flex items-end gap-6 lg:flex-col lg:items-end lg:gap-0">
+            <div className="text-left lg:text-right">
+              <div className="font-display text-5xl" style={{ color: "var(--gold-vivid)" }}>
+                5.0
+              </div>
+              <div className="flex lg:justify-end gap-0.5 my-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="star">
+                    ★
+                  </span>
+                ))}
+              </div>
+              <p
+                className="font-ui"
+                style={{ fontSize: ".75rem", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--cream-muted)" }}
+              >
+                Prosečna ocena
+              </p>
             </div>
-            <div className="flex justify-end gap-0.5 my-1">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className="star">
-                  ★
-                </span>
-              ))}
-            </div>
-            <p
-              className="font-ui"
-              style={{
-                fontSize: ".625rem",
-                letterSpacing: ".16em",
-                textTransform: "uppercase",
-                color: "var(--cream-muted)",
-              }}
-            >
-              Prosečna ocena
-            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 mb-6 fade-up">
-          <span
-            className="font-ui text-[.6rem] tracking-[.2em] uppercase"
-            style={{ color: "rgba(201,168,76,.5)" }}
+        {/* strelice levo-desno iznad kartica — na telefonu ih ne prekriva plutajuće dugme „Zakaži termin" */}
+        <div className="fade-up mb-4 flex items-center justify-between gap-4">
+          <p
+            className="font-ui"
+            style={{ fontSize: ".75rem", letterSpacing: ".14em", textTransform: "uppercase", color: "rgba(226,196,122,.85)", margin: 0 }}
           >
-            ← Prevuci za više →
-          </span>
+            <span className="hidden sm:inline">Prevucite ili koristite strelice</span>
+            <span className="sm:hidden">Prevucite za više</span>
+          </p>
+          <div className="flex items-center gap-3">
+            <button type="button" className="carousel-arrow" onClick={() => goTo(active - 1)} disabled={atStart} aria-label="Prethodna recenzija">
+              <Arrow dir="left" />
+            </button>
+            <button type="button" className="carousel-arrow" onClick={() => goTo(active + 1)} disabled={atEnd} aria-label="Sledeća recenzija">
+              <Arrow dir="right" />
+            </button>
+          </div>
         </div>
 
-        <div ref={carouselRef} className="testimonials-carousel-wrap">
-          <div ref={trackRef} className="testimonials-carousel-track">
-            {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-              <div
-                key={i}
-                className="testimonial-card"
-                style={{
-                  background: "linear-gradient(145deg, black 5%, #181108 100%)",
-                }}
-              >
-                <div className="quote-mark mb-2">"</div>
-                <p
-                  className="font-body text-lg leading-relaxed mb-6 italic"
-                  style={{ color: "var(--cream)" }}
-                >
-                  {t.quote}
-                </p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div
-                      className="font-ui text-sm font-medium"
-                      style={{ color: "var(--cream-strong)" }}
-                    >
-                      {t.author}
-                    </div>
-                    <div
-                      className="font-ui mt-0.5"
-                      style={{
-                        fontSize: ".6rem",
-                        letterSpacing: ".14em",
-                        textTransform: "uppercase",
-                        color: "var(--gold-vivid)",
-                        opacity: 0.85,
-                      }}
-                    >
-                      {t.detail}
-                    </div>
+        <div
+          ref={trackRef}
+          className="testimonials-carousel-track"
+          role="region"
+          aria-roledescription="karusel"
+          aria-label="Recenzije klijenata"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowRight") {
+              e.preventDefault();
+              goTo(active + 1);
+            } else if (e.key === "ArrowLeft") {
+              e.preventDefault();
+              goTo(active - 1);
+            }
+          }}
+        >
+          {TESTIMONIALS.map((t, i) => (
+            <article
+              key={t.author}
+              className="testimonial-card"
+              aria-label={`Recenzija ${i + 1} od ${TESTIMONIALS.length}`}
+              style={{ background: "linear-gradient(145deg, #1e1910 0%, #2b2418 100%)" }}
+            >
+              <div className="quote-mark mb-2" aria-hidden>
+                &ldquo;
+              </div>
+              <p className="font-body leading-relaxed mb-6 italic" style={{ color: "var(--cream)" }}>
+                {t.quote}
+              </p>
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="font-ui font-medium" style={{ color: "var(--cream-strong)", fontSize: "1rem" }}>
+                    {t.author}
                   </div>
-                  <div className="flex gap-0.5">
-                    {[...Array(t.stars)].map((_, j) => (
-                      <span key={j} className="star">
-                        ★
-                      </span>
-                    ))}
+                  <div
+                    className="font-ui mt-0.5"
+                    style={{ fontSize: ".72rem", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--gold-vivid)" }}
+                  >
+                    {t.detail}
                   </div>
                 </div>
-                <div className="corner-accent-tl" />
-                <div className="corner-accent-br" />
+                <div className="flex gap-0.5" aria-label={`Ocena ${t.stars} od 5`}>
+                  {[...Array(t.stars)].map((_, j) => (
+                    <span key={j} className="star" aria-hidden>
+                      ★
+                    </span>
+                  ))}
+                </div>
               </div>
-            ))}
-          </div>
+              <div className="corner-accent-tl" />
+              <div className="corner-accent-br" />
+            </article>
+          ))}
         </div>
 
-        <div className="carousel-dots mt-8">
-          {TESTIMONIALS.map((_, i) => (
-            <div
+        {/* tačkice: gde se karusel nalazi (klik vodi na taj položaj) */}
+        <div className="carousel-dots !mt-4">
+          {stops.map((_, i) => (
+            <button
               key={i}
-              className={`carousel-dot ${activeDot === i ? "active" : ""}`}
-              onClick={() => {
-                if (trackRef.current) {
-                  const targetX = -(i * 436);
-                  gsap.to(trackRef.current, {
-                    x: targetX,
-                    duration: 0.6,
-                    ease: "power2.inOut",
-                  });
-                  setActiveDot(i);
-                }
-              }}
+              type="button"
+              aria-label={`Recenzije, položaj ${i + 1}`}
+              aria-current={active === i ? "true" : undefined}
+              className={`carousel-dot ${active === i ? "active" : ""}`}
+              onClick={() => goTo(i)}
             />
           ))}
         </div>

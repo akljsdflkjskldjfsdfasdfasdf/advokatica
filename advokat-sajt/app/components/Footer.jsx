@@ -13,7 +13,7 @@ export default function Footer() {
     <footer
       className="border-t"
       style={{
-        background: "linear-gradient(to bottom, #0a0806, #050302)",
+        background: "linear-gradient(to bottom, #1b1712, #13110d)",
         borderColor: "rgba(201,168,76,.16)",
       }}
     >
@@ -29,8 +29,8 @@ export default function Footer() {
             <div
               className="font-ui mt-0.5"
               style={{
-                fontSize: ".6rem",
-                letterSpacing: ".25em",
+                fontSize: ".74rem",
+                letterSpacing: ".22em",
                 textTransform: "uppercase",
                 color: "var(--gold-vivid)",
               }}
@@ -38,10 +38,10 @@ export default function Footer() {
               Advokat · Žabalj 
             </div>
             <p
-              className="font-ui text-xs mt-4 max-w-xs"
+              className="font-ui text-sm mt-4 max-w-xs"
               style={{
                 color: "var(--cream-muted)",
-                opacity: 0.5,
+                opacity: 0.85,
                 lineHeight: 1.7,
               }}
             >
@@ -60,8 +60,8 @@ export default function Footer() {
           </nav>
 
           <p
-            className="font-ui text-xs text-center lg:text-right"
-            style={{ color: "rgba(208,198,176,.35)", lineHeight: 1.8 }}
+            className="font-ui text-sm text-center lg:text-right"
+            style={{ color: "rgba(230,223,207,.7)", lineHeight: 1.8 }}
           >
             © {new Date().getFullYear()} Maja Mrđen Advokat
             <br />

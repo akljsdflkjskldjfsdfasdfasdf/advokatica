@@ -15,16 +15,17 @@
   --gold-glow-sm: rgba(201, 168, 76, 0.2);
   --gold-line: rgba(201, 168, 76, 0.5); /* NEW — for borders */
 
-  --charcoal: #050403; /* slightly deeper black */
-  --charcoal-100: #0d0b08;
-  --charcoal-200: #171410;
-  --charcoal-300: #221e14;
-  --charcoal-400: #302a1a; /* stronger border colour */
-  --charcoal-500: #46402a;
+  /* tople tamne nijanse (ranije skoro crna — sajt je bio previše mračan) */
+  --charcoal: #13110d;
+  --charcoal-100: #1b1813;
+  --charcoal-200: #241f18;
+  --charcoal-300: #2f2920;
+  --charcoal-400: #40382a;
+  --charcoal-500: #5c5240;
 
   --cream: #f6f1ea;
   --cream-strong: #ffffff;
-  --cream-muted: #d0c6b0; /* brighter than before */
+  --cream-muted: #e6dfcf; /* svetlije — tekst se jasno čita */
   --cream-faint: rgba(246, 241, 234, 0.06);
 
   --shadow-gold: 0 0 80px rgba(201, 168, 76, 0.22);
@@ -34,18 +35,20 @@
 }
 
 @theme {
+  /* širina sadržaja ostaje ista i kad su slova krupnija (rem raste sa veličinom slova) */
+  --container-7xl: 1320px;
   --color-gold: #c9a84c;
   --color-gold-light: #e2c47a;
   --color-gold-vivid: #f0d060;
   --color-gold-pale: #f5e9b8;
-  --color-charcoal: #050403;
-  --color-charcoal-100: #0d0b08;
-  --color-charcoal-200: #171410;
-  --color-charcoal-300: #221e14;
-  --color-charcoal-400: #302a1a;
-  --color-charcoal-500: #46402a;
+  --color-charcoal: #13110d;
+  --color-charcoal-100: #1b1813;
+  --color-charcoal-200: #241f18;
+  --color-charcoal-300: #2f2920;
+  --color-charcoal-400: #40382a;
+  --color-charcoal-500: #5c5240;
   --color-cream: #f6f1ea;
-  --color-cream-muted: #d0c6b0;
+  --color-cream-muted: #e6dfcf;
   --font-ui: "DM Sans", system-ui, sans-serif;
   --font-display: "Playfair Display", serif;
   --font-body: "Cormorant Garamond", serif;
@@ -67,13 +70,24 @@
     scroll-behavior: smooth;
     font-size: 16px;
   }
+  /* laptop i računar: krupnija slova (sve mere su u rem, pa raste ceo raspored srazmerno) */
+  @media (min-width: 1024px) {
+    html {
+      font-size: 17px;
+    }
+  }
+  @media (min-width: 1440px) {
+    html {
+      font-size: 18px;
+    }
+  }
 
   body {
     background-color: var(--charcoal);
     color: var(--cream);
     font-family: "Cormorant Garamond", serif;
     font-weight: 400;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     line-height: 1.8;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -110,22 +124,12 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 9997;
-  opacity: 0.032;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9996;
-  background: radial-gradient(
-    ellipse 120% 100% at 50% 0%,
-    transparent 55%,
-    rgba(5, 4, 3, 0.45) 100%
-  );
-}
+/* Ranije je ovde bila tamna vinjeta (body::after, z-index 9996) PREKO celog sajta: zatamnjivala je
+   ivice i dno ekrana do 45 % iznad svakog sadržaja. Uklonjena — sve se sada vidi u punoj jačini. */
 
 /* ═══════════════════════════════════════════════════
    TYPOGRAPHY
@@ -135,9 +139,9 @@ body::after {
   align-items: center;
   gap: 0.8rem;
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--gold-vivid);
 }
@@ -161,8 +165,8 @@ body::after {
 
 p {
   color: var(--cream-muted);
-  font-size: 1.1rem;
-  line-height: 1.84;
+  font-size: 1.2rem;
+  line-height: 1.8;
 }
 
 /* Gold gradient text utility */
@@ -186,11 +190,11 @@ p {
   display: inline-block;
   overflow: hidden;
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 1.2rem 2.6rem;
+  padding: 1.25rem 2.6rem;
   border: 1px solid var(--gold-light);
   color: var(--gold-light);
   background: transparent;
@@ -244,7 +248,7 @@ p {
 
 .btn-ghost {
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -279,7 +283,7 @@ p {
   padding: 0.9rem 0;
   color: var(--cream-strong);
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.5;
   transition:
     border-color 0.35s ease,
@@ -287,7 +291,7 @@ p {
   outline: none;
 }
 .input-field::placeholder {
-  color: rgba(208, 198, 176, 0.32);
+  color: rgba(230, 223, 207, 0.5);
 }
 .input-field:focus {
   border-color: var(--gold-vivid);
@@ -297,7 +301,7 @@ p {
 .form-label {
   display: block;
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.76rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -346,7 +350,7 @@ p {
 .form-card-inner {
   position: relative;
   z-index: 1;
-  background: linear-gradient(160deg, #131009 0%, #0c0a07 100%);
+  background: linear-gradient(160deg, #221d15 0%, #1a1611 100%);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -485,23 +489,70 @@ p {
 }
 
 /* ═══════════════════════════════════════════════════
-   TESTIMONIAL DRAG CAROUSEL
+   TESTIMONIAL CAROUSEL — strelice levo/desno, prevlačenje (prst i miš), tačkice.
+   Kartice se „zakače” za ivicu (scroll-snap), pa se uvek vidi cela recenzija.
 ═══════════════════════════════════════════════════ */
-.testimonials-carousel-wrap {
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.testimonials-carousel-wrap.is-dragging {
-  cursor: grabbing;
-}
 .testimonials-carousel-track {
   display: flex;
   gap: 1.5rem;
   padding: 1rem 0.25rem 2rem;
-  width: max-content;
-  will-change: transform;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.testimonials-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.testimonials-carousel-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.testimonials-carousel-track > .testimonial-card {
+  scroll-snap-align: start;
+}
+/* tablet: 2 kartice u redu, računar: 3 (telefon: jedna, sa delom sledeće) */
+@media (min-width: 768px) {
+  .testimonials-carousel-track > .testimonial-card {
+    width: calc((100% - 1.5rem) / 2);
+  }
+}
+@media (min-width: 1100px) {
+  .testimonials-carousel-track > .testimonial-card {
+    width: calc((100% - 3rem) / 3);
+  }
+}
+.carousel-arrow {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--gold-line);
+  color: var(--gold-light);
+  background: rgba(36, 31, 24, 0.85);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+.carousel-arrow:hover:not(:disabled) {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--charcoal);
+  transform: scale(1.06);
+}
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .testimonial-card {
@@ -538,8 +589,8 @@ p {
 }
 .testimonial-card p {
   color: var(--cream);
-  font-size: 1.08rem;
-  line-height: 1.88;
+  font-size: 1.22rem;
+  line-height: 1.75;
 }
 
 /* Carousel dots */
@@ -551,7 +602,8 @@ p {
 }
 .carousel-dot {
   width: 24px;
-  height: 2px;
+  height: 3px;
+  border-radius: 2px;
   background: var(--charcoal-500);
   transition:
     background 0.35s ease,
@@ -762,7 +814,7 @@ p {
 .nav-link {
   position: relative;
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--cream-muted);
@@ -906,15 +958,16 @@ p {
 }
 .contact-detail p {
   color: var(--gold-vivid);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   margin-bottom: 0.3rem;
 }
-.contact-detail a {
+.contact-detail a,
+.contact-detail .contact-value {
   color: var(--cream-strong);
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.18rem;
+  font-size: 1.3rem;
   transition: color 0.3s ease;
 }
 .contact-detail a:hover {
@@ -947,7 +1000,7 @@ p {
 }
 .credential-text {
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--cream);
   letter-spacing: 0.01em;
@@ -975,7 +1028,7 @@ p {
   text-transform: uppercase;
   letter-spacing: -0.025em;
   line-height: 1;
-  color: rgba(201, 168, 76, 0.1);
+  color: rgba(201, 168, 76, 0.16);
   user-select: none;
   pointer-events: none;
 }
@@ -1050,7 +1103,7 @@ p {
 }
 .floating-badge-label {
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--cream-muted);
@@ -1084,7 +1137,7 @@ p {
    HEADER
 ═══════════════════════════════════════════════════ */
 .header-scrolled {
-  background: rgba(5, 4, 3, 0.97) !important;
+  background: rgba(19, 17, 13, 0.97) !important;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--charcoal-400) !important;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
@@ -1175,12 +1228,12 @@ p {
   align-items: center;
   gap: 0.75rem;
   font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--cream-muted);
-  opacity: 0.7;
+  opacity: 0.85;
   transition: opacity 0.3s ease;
 }
 .trust-item:hover {

@@ -57,7 +57,7 @@ export default function Stats() {
       ref={statsBarRef}
       className="relative z-10 w-full border-t border-charcoal-300"
       style={{
-        background: "black",
+        background: "#1b1712",
         opacity: 0,
       }}
     >
@@ -80,7 +80,7 @@ export default function Stats() {
               <div
                 className="font-ui mt-2"
                 style={{
-                  fontSize: ".625rem",
+                  fontSize: ".78rem",
                   letterSpacing: ".18em",
                   textTransform: "uppercase",
                   color: "var(--cream-muted)",

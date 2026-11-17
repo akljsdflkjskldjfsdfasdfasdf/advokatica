@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -28,6 +28,8 @@ const STEPS = [
 ];
 
 export default function Process() {
+  const sectionRef = useRef(null);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -97,7 +99,7 @@ export default function Process() {
         );
       });
 
-      document.querySelectorAll(".step-connector").forEach((line, i) => {
+      gsap.utils.toArray(".step-connector").forEach((line, i) => {
         gsap.fromTo(
           line,
           { scaleX: 0 },
@@ -110,18 +112,19 @@ export default function Process() {
           },
         );
       });
-    });
+    }, sectionRef); // samo elementi ove sekcije
 
     return () => ctx.revert();
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="proces"
-      className="relative py-32 lg:py-44 overflow-hidden"
+      className="relative py-28 lg:py-36 overflow-hidden"
       style={{
         background:
-          "linear-gradient(160deg, #141109 0%, #0e0c07 50%, #120f08 100%)",
+          "linear-gradient(160deg, #241e15 0%, #1d1910 50%, #221c13 100%)",
       }}
     >
       <div
@@ -179,7 +182,7 @@ export default function Process() {
                 {step.title}
               </h3>
               <p
-                className="font-body text-base leading-relaxed"
+                className="font-body text-lg leading-relaxed"
                 style={{ color: "var(--cream-muted)" }}
               >
                 {step.desc}

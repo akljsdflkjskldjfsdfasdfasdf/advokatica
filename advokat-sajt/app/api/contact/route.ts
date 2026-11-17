@@ -4,14 +4,42 @@ import nodemailer from "nodemailer";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, subject, message, date } = body;
 
-    if (!name || !email || !message) {
+    // Zamka za botove: skriveno polje koje čovek ne vidi. Ako je popunjeno — tiho „uspeh”, ništa se ne šalje.
+    if (body.website) {
+      return NextResponse.json({ success: true });
+    }
+
+    // Tekst iz forme: skraćen na razumnu dužinu; u naslovu mejla bez novih redova
+    const clip = (v: unknown, n: number) => String(v ?? "").trim().slice(0, n);
+    const oneLine = (v: string) => v.replace(/[\r\n]+/g, " ");
+    const plainName = oneLine(clip(body.name, 100));
+    const plainEmail = oneLine(clip(body.email, 254));
+    const plainSubject = oneLine(clip(body.subject, 100));
+
+    if (!plainName || !plainEmail || !clip(body.message, 5000)) {
       return NextResponse.json(
         { success: false, error: "Nedostaju obavezna polja" },
         { status: 400 },
       );
     }
+    if (!/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(plainEmail)) {
+      return NextResponse.json(
+        { success: false, error: "Neispravna email adresa" },
+        { status: 400 },
+      );
+    }
+
+    // Sve što ide u HTML mejla se „escape-uje”: niko ne može kroz formu da ubaci linkove ili HTML
+    // u mejl advokatici niti u potvrdu koja se šalje na upisanu adresu.
+    const esc = (v: string) =>
+      v.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
+    const name = esc(plainName);
+    const email = esc(plainEmail);
+    const phone = esc(clip(body.phone, 40));
+    const subject = esc(plainSubject);
+    const message = esc(clip(body.message, 5000));
+    const date = esc(clip(body.date, 20));
 
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -25,8 +53,8 @@ export async function POST(req: NextRequest) {
     await transporter.sendMail({
       from: `"Sajt - Maja Mrđen Advokat" <${process.env.GMAIL_USER}>`,
       to: process.env.LAWYER_EMAIL,
-      replyTo: email,
-      subject: `📋 Nova poruka: ${subject || "Zakazivanje termina"} — ${name}`,
+      replyTo: plainEmail,
+      subject: `📋 Nova poruka: ${plainSubject || "Zakazivanje termina"} — ${plainName}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -103,7 +131,7 @@ export async function POST(req: NextRequest) {
     // Potvrdan email klijentu
     await transporter.sendMail({
       from: `"Maja Mrđen | Advokat" <${process.env.GMAIL_USER}>`,
-      to: email,
+      to: plainEmail,
       subject: `Potvrda prijema poruke — Maja Mrđen Advokat`,
       html: `
         <!DOCTYPE html>

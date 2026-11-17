@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function About() {
+  const sectionRef = useRef(null);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -53,16 +55,17 @@ export default function About() {
           scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
         });
       });
-    });
+    }, sectionRef); // samo elementi ove sekcije
 
     return () => ctx.revert();
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="o-meni"
-      className="relative py-32 lg:py-44 overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #0e0c08 0%, #0a0805 100%)" }}
+      className="relative py-28 lg:py-36 overflow-hidden"
+      style={{ background: "linear-gradient(160deg, #1f1b14 0%, #18150f 100%)" }}
     >
       <div
         className="section-glow absolute top-0 left-0 bottom-0 w-1/2 pointer-events-none"
@@ -125,7 +128,7 @@ export default function About() {
 
             <div
               className="fade-up space-y-5 leading-relaxed mb-10"
-              style={{ color: "var(--cream-muted)", fontSize: "1.15rem" }}
+              style={{ color: "var(--cream-muted)", fontSize: "1.25rem" }}
             >
               <p>
                 Advokat Maja Mrđen pruža pravnu zaštitu fizičkim i pravnim

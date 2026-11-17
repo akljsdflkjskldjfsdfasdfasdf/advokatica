@@ -81,7 +81,7 @@ export default function Hero({ showMobileCta, scrollPct }) {
               "url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=1800&q=80&fit=crop')",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
-            opacity: 0.78,
+            opacity: 0.92,
           }}
         />
 
@@ -90,7 +90,7 @@ export default function Hero({ showMobileCta, scrollPct }) {
           className="absolute inset-0 z-[1]"
           style={{
             background:
-              "radial-gradient(ellipse 110% 100% at 60% 50%, rgba(3,2,1,0.55) 0%, rgba(3,2,1,0.88) 70%)",
+              "radial-gradient(ellipse 110% 100% at 60% 50%, rgba(10,8,5,0.32) 0%, rgba(10,8,5,0.72) 70%)",
           }}
         />
 
@@ -110,7 +110,7 @@ export default function Hero({ showMobileCta, scrollPct }) {
           className="absolute inset-0 pointer-events-none z-[4]"
           style={{
             background:
-              "radial-gradient(ellipse 130% 100% at 50% 50%, transparent 38%, rgba(3,2,1,.85) 100%)",
+              "radial-gradient(ellipse 130% 100% at 50% 50%, transparent 45%, rgba(10,8,5,.6) 100%)",
           }}
         />
 
@@ -137,7 +137,7 @@ export default function Hero({ showMobileCta, scrollPct }) {
           >
             <div className="w-10 h-px bg-gold-vivid" />
             <span
-              className="font-ui text-[0.65rem] tracking-[0.26em] uppercase"
+              className="font-ui text-[0.8rem] tracking-[0.24em] uppercase"
               style={{ color: "var(--gold-vivid)" }}
             >
               Pravna kancelarija · Žabalj

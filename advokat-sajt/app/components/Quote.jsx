@@ -32,7 +32,7 @@ export default function Quote() {
   return (
     <section
       className="quote-section py-24 overflow-hidden relative border-y"
-      style={{ background: "#040302", borderColor: "rgba(201,168,76,.22)" }}
+      style={{ background: "#1a1610", borderColor: "rgba(201,168,76,.26)" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -51,7 +51,7 @@ export default function Quote() {
           }}
           aria-hidden
         >
-          "
+          &ldquo;
         </div>
         <blockquote
           className="font-display italic leading-snug mb-8"
@@ -75,7 +75,7 @@ export default function Quote() {
           <span
             className="font-ui uppercase"
             style={{
-              fontSize: ".6875rem",
+              fontSize: ".8rem",
               letterSpacing: ".2em",
               color: "var(--gold-vivid)",
             }}
