@@ -140,7 +140,7 @@ export default function Hero({ showMobileCta }) {
               className="font-ui text-[0.8rem] tracking-[0.24em] uppercase"
               style={{ color: "var(--gold-vivid)" }}
             >
-              Pravna kancelarija · Žabalj
+              Advokatska kancelarija · Žabalj
             </span>
           </div>
 
