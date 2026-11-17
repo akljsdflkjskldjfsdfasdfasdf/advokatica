@@ -31,7 +31,7 @@ export default function Quote() {
 
   return (
     <section
-      className="quote-section py-24 overflow-hidden relative border-y"
+      className="quote-section py-16 overflow-hidden relative border-y"
       style={{ background: "#1a1610", borderColor: "rgba(201,168,76,.26)" }}
     >
       <div

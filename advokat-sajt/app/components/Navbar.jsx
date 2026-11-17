@@ -90,7 +90,7 @@ export default function Navbar({ scrolled, activeSection }) {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-charcoal/97 backdrop-blur-md border-b border-charcoal-400"
+            ? "bg-charcoal/97 border-b border-charcoal-400"
             : "bg-transparent"
         }`}
         style={scrolled ? { boxShadow: "0 4px 40px rgba(0,0,0,0.75)" } : {}}

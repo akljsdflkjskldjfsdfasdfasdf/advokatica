@@ -13,3 +13,6 @@ out/
 # misc
 .DS_Store
 *.log
+
+# TypeScript kes
+*.tsbuildinfo

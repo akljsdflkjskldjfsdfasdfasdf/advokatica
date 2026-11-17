@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function Hero({ showMobileCta, scrollPct }) {
+export default function Hero({ showMobileCta }) {
   const heroRef = useRef(null);
   const heroSubRef = useRef(null);
   const heroCtaRef = useRef(null);
@@ -52,7 +52,7 @@ export default function Hero({ showMobileCta, scrollPct }) {
   return (
     <>
       {/* Scroll Progress */}
-      <div className="scroll-progress" style={{ width: `${scrollPct}%` }} />
+      <div className="scroll-progress" />
 
       {/* Mobile Floating CTA */}
       <div

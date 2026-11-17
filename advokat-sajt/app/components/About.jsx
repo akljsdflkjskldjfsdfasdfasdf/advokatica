@@ -11,22 +11,6 @@ export default function About() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".section-heading").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 20 },
-          {
-            y: -20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          }
-        );
-      });
 
       gsap.utils.toArray(".section-glow").forEach((el) => {
         gsap.fromTo(
@@ -64,7 +48,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="o-meni"
-      className="relative py-28 lg:py-36 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
       style={{ background: "linear-gradient(160deg, #1f1b14 0%, #18150f 100%)" }}
     >
       <div

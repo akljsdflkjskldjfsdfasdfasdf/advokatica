@@ -118,15 +118,7 @@
 /* ═══════════════════════════════════════════════════
    FILM GRAIN + VIGNETTE
 ═══════════════════════════════════════════════════ */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9997;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-}
+/* zrno preko celog ekrana uklonjeno (sloj iznad svega se iscrtavao pri skrolu) */
 
 /* Ranije je ovde bila tamna vinjeta (body::after, z-index 9996) PREKO celog sajta: zatamnjivala je
    ivice i dno ekrana do 45 % iznad svakog sadržaja. Uklonjena — sve se sada vidi u punoj jačini. */
@@ -234,7 +226,7 @@ p {
 
 /* Pulse ring on hero CTA */
 .btn-primary-pulse {
-  animation: btnPulse 3s ease-in-out infinite;
+  /* ranije: beskonačna animacija senke (iscrtava se svaki kadar) — uklonjeno zbog procesora */
 }
 @keyframes btnPulse {
   0%,
@@ -928,7 +920,9 @@ p {
   position: fixed;
   top: 0;
   left: 0;
-  width: 0%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
   height: 2px;
   background: linear-gradient(
     to right,
@@ -938,7 +932,6 @@ p {
     var(--gold-pale)
   );
   z-index: 9999;
-  transition: width 0.1s linear;
   box-shadow: 0 0 12px var(--gold-glow);
 }
 
@@ -1138,7 +1131,6 @@ p {
 ═══════════════════════════════════════════════════ */
 .header-scrolled {
   background: rgba(19, 17, 13, 0.97) !important;
-  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--charcoal-400) !important;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
 }

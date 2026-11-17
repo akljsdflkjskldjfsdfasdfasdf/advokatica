@@ -171,7 +171,7 @@ export default function Testimonials() {
     <section
       ref={sectionRef}
       id="recenzije"
-      className="relative py-28 lg:py-36 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
       style={{
         background: "linear-gradient(175deg, #2a2317 0%, #211b12 50%, #282015 100%)",
       }}

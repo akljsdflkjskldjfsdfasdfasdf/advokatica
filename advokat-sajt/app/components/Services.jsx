@@ -206,22 +206,6 @@ export default function Services() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".section-heading").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 20 },
-          {
-            y: -20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          },
-        );
-      });
 
       gsap.utils.toArray(".section-glow").forEach((el) => {
         gsap.fromTo(
@@ -301,7 +285,7 @@ export default function Services() {
     <section
       ref={sectionRef}
       id="usluge"
-      className="relative py-28 lg:py-32 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
       style={{ background: "#f4efe6" }}
     >
       {/* Suptilni zlatni glow odozgo */}
@@ -337,7 +321,7 @@ export default function Services() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
           <div>
             <p
               className="fade-up mb-4"

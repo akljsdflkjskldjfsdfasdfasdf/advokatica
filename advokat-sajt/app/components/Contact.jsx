@@ -115,7 +115,7 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="kontakt"
-      className="relative py-28 lg:py-36 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
       style={{ background: "#17140f" }}
     >
       {/* Background photo — kancelarija u magli (samo desktop) */}

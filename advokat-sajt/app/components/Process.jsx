@@ -34,22 +34,6 @@ export default function Process() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.utils.toArray(".section-heading").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 20 },
-          {
-            y: -20,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1.2,
-            },
-          },
-        );
-      });
 
       gsap.utils.toArray(".section-glow").forEach((el) => {
         gsap.fromTo(
@@ -121,7 +105,7 @@ export default function Process() {
     <section
       ref={sectionRef}
       id="proces"
-      className="relative py-28 lg:py-36 overflow-hidden"
+      className="relative py-20 lg:py-28 overflow-hidden"
       style={{
         background:
           "linear-gradient(160deg, #241e15 0%, #1d1910 50%, #221c13 100%)",
@@ -138,7 +122,7 @@ export default function Process() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-20">
+        <div className="text-center mb-14">
           <p className="section-label fade-up mb-6 justify-center">
             Kako radimo
           </p>
