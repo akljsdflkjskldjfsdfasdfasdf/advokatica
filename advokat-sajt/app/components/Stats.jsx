@@ -1,93 +1,48 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReveal } from "./reveal";
+
+const STATS = [
+  { num: 500, suffix: "+", label: "Rešenih predmeta" },
+  { num: 98, suffix: "%", label: "Procenat uspeha" },
+];
 
 export default function Stats() {
-  const statsBarRef = useRef(null);
+  const barRef = useRef(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      // ── Bar — fade in kada dođe u viewport ──
+  useReveal(barRef, (root) => {
+    // brojevi odbrojavaju od nule kada traka uđe u ekran (u HTML-u su odmah pravi brojevi)
+    root.querySelectorAll(".stat-num").forEach((el) => {
+      const target = Number(el.dataset.target || 0);
       gsap.fromTo(
-        statsBarRef.current,
-        { opacity: 0, y: 40 },
+        el,
+        { textContent: 0 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: statsBarRef.current,
-            start: "top 90%",
-            once: true,
-          },
+          textContent: target,
+          duration: 2.4,
+          ease: "power1.out",
+          snap: { textContent: 1 },
+          scrollTrigger: { trigger: root, start: "top 90%", once: true },
         },
       );
-
-      // ── Brojevi — animiraju se kada bar uđe u viewport ──
-      gsap.utils.toArray(".stat-num").forEach((el) => {
-        const target = parseInt(el.dataset.target || "0");
-        gsap.fromTo(
-          el,
-          { textContent: 0 },
-          {
-            textContent: target,
-            duration: 2.4,
-            ease: "power1.out",
-            snap: { textContent: 1 },
-            scrollTrigger: {
-              trigger: statsBarRef.current,
-              start: "top 90%",
-              once: true,
-            },
-          },
-        );
-      });
-    }, statsBarRef);
-
-    return () => ctx.revert();
-  }, []);
+    });
+  });
 
   return (
-    <div
-      ref={statsBarRef}
-      className="relative z-10 w-full border-t border-charcoal-300"
-      style={{
-        background: "#1b1712",
-        opacity: 0,
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-2 divide-x divide-charcoal-300">
-          {[
-            { num: 500, suffix: "+", label: "Rešenih predmeta" },
-            { num: 98, suffix: "%", label: "Procenat uspeha" },
-          ].map((stat) => (
-            <div key={stat.label} className="stat-item text-center py-10">
-              <div
-                className="font-display text-3xl md:text-4xl tracking-tight"
-                style={{ color: "var(--gold-vivid)" }}
-              >
+    <div ref={barRef} className="sec-ink relative border-t border-white/10">
+      <div className="fade-up max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-2">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="stat-item">
+              <div className="stat-value">
                 <span className="stat-num" data-target={stat.num}>
-                  0
+                  {stat.num}
                 </span>
                 <span>{stat.suffix}</span>
               </div>
-              <div
-                className="font-ui mt-2"
-                style={{
-                  fontSize: ".78rem",
-                  letterSpacing: ".18em",
-                  textTransform: "uppercase",
-                  color: "var(--cream-muted)",
-                }}
-              >
-                {stat.label}
-              </div>
+              <div className="stat-label">{stat.label}</div>
             </div>
           ))}
         </div>

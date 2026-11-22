@@ -1,5 +1,26 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+// Fontovi se služe sa samog sajta (next/font). Ranije su se učitavali preko @import sa Google-a,
+// ali build je taj red izbacivao — sajt je zato prikazivao običan Times i Segoe UI.
+// (Cormorant Garamond je odbačen: pogrešno postavlja kvačicu na malim „č" i „š".)
+const playfair = Playfair_Display({
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-dmsans",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#0c0e12",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://advokat-maja-mrdjen.com"),
@@ -80,8 +101,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="sr">
+    <html lang="sr" className={`${playfair.variable} ${dmSans.variable}`}>
       <body>
+        {/* bez JavaScript-a nema animacija ulaska — sadržaj mora odmah da se vidi */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              "<style>.fade-up,.fade-left,.fade-right,.stagger-child,.anim-hide,.hero-line>span,.anim-line,.step-connector{opacity:1!important;transform:none!important}.reveal-photo{clip-path:none!important}</style>",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,90 +1,56 @@
 "use client";
 
-import { useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReveal } from "./reveal";
+
+const QUOTE_WORDS = "Pravda nije samo cilj — to je put kojim zajedno hodamo.".split(" ");
 
 export default function Quote() {
-  const quoteWords =
-    "Pravda nije samo cilj — to je put kojim zajedno hodamo.".split(" ");
+  const sectionRef = useRef(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".quote-word",
-        { opacity: 0, y: 18 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.06,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".quote-section", start: "top 75%" },
-        },
-      );
-    });
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef, (root) => {
+    // reč po reč
+    gsap.fromTo(
+      root.querySelectorAll(".quote-word"),
+      { opacity: 0, y: 18 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.07,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: { trigger: root, start: "top 72%", once: true },
+      },
+    );
+  });
 
   return (
-    <section
-      className="quote-section py-16 overflow-hidden relative border-y"
-      style={{ background: "#1a1610", borderColor: "rgba(201,168,76,.26)" }}
-    >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 55% 90% at 50% 50%, rgba(201,168,76,.10) 0%, transparent 65%)",
-        }}
-      />
-      <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center relative">
-        <div
-          className="font-display absolute -top-4 left-4 lg:left-0"
-          style={{
-            fontSize: "8rem",
-            lineHeight: 1,
-            color: "rgba(201,168,76,.14)",
-          }}
-          aria-hidden
-        >
+    <section ref={sectionRef} className="sec-light relative py-24 lg:py-32 overflow-hidden">
+      {/* paragraf — simbol prava, jedva vidljiv u pozadini */}
+      <div className="paragraph-watermark hidden md:block" aria-hidden="true">
+        §
+      </div>
+
+      <figure className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
+        <div className="quote-glyph fade-up" aria-hidden="true">
           &ldquo;
         </div>
-        <blockquote
-          className="font-display italic leading-snug mb-8"
-          style={{
-            fontSize: "clamp(1.7rem, 3.5vw, 3.4rem)",
-            color: "var(--cream-strong)",
-          }}
-        >
-          {quoteWords.map((word, i) => (
-            <span
-              key={i}
-              className="quote-word inline-block mr-[.28em]"
-              style={{ opacity: 0 }}
-            >
-              {word}
-            </span>
-          ))}
+        <blockquote className="quote-text mb-10">
+          <p>
+            {QUOTE_WORDS.map((word, i) => (
+              <span key={i} className="quote-word anim-hide inline-block mr-[0.26em]">
+                {word}
+              </span>
+            ))}
+          </p>
         </blockquote>
-        <div className="flex items-center justify-center gap-4">
-          <div className="w-8 h-px bg-gold" />
-          <span
-            className="font-ui uppercase"
-            style={{
-              fontSize: ".8rem",
-              letterSpacing: ".2em",
-              color: "var(--gold-vivid)",
-            }}
-          >
-            Maja Mrđen
-          </span>
-          <div className="w-8 h-px bg-gold" />
-        </div>
-      </div>
+        <figcaption className="fade-up flex items-center justify-center gap-4">
+          <span className="w-10 h-px bg-gold" aria-hidden="true" />
+          <span className="font-ui text-[0.72rem] font-medium tracking-[0.3em] uppercase text-gold-deep">Maja Mrđen</span>
+          <span className="w-10 h-px bg-gold" aria-hidden="true" />
+        </figcaption>
+      </figure>
     </section>
   );
 }

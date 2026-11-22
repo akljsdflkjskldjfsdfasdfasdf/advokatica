@@ -1,88 +1,49 @@
-"use client";
-
-const NAV_LINKS = [
-  { label: "O meni", href: "#o-meni" },
-  { label: "Usluge", href: "#usluge" },
-  { label: "Proces", href: "#proces" },
-  { label: "Recenzije", href: "#recenzije" },
-  { label: "Kontakt", href: "#kontakt" },
-];
+import { ADDRESS, EMAIL, NAV_LINKS, PHONE_DISPLAY, PHONE_HREF } from "./site";
 
 export default function Footer() {
   return (
-    <footer
-      className="border-t"
-      style={{
-        background: "linear-gradient(to bottom, #1b1712, #13110d)",
-        borderColor: "rgba(201,168,76,.16)",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-14">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
-          <div className="text-center lg:text-left">
-            <div
-              className="font-display text-xl"
-              style={{ color: "var(--cream)" }}
-            >
-              Maja Mrđen
-            </div>
-            <div
-              className="font-ui mt-0.5"
-              style={{
-                fontSize: ".74rem",
-                letterSpacing: ".22em",
-                textTransform: "uppercase",
-                color: "var(--gold-vivid)",
-              }}
-            >
-              Advokat · Žabalj 
-            </div>
-            <p
-              className="font-ui text-sm mt-4 max-w-xs"
-              style={{
-                color: "var(--cream-muted)",
-                opacity: 0.85,
-                lineHeight: 1.7,
-              }}
-            >
-              Nikole Tesle 88, Žabalj
+    <footer className="sec-ink relative border-t border-white/10" style={{ backgroundColor: "#090b0e" }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-10">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+            <a href="#" className="flex items-center gap-3.5">
+              {/* eslint-disable-next-line @next/next/no-img-element -- mali logo, već optimizovan PNG */}
+              <img src="/logo-zlatni.png" alt="Logo Mrđen advokat" width={931} height={744} className="h-12 w-auto" />
+              <span className="flex flex-col leading-none text-left">
+                <span className="font-display text-[1.4rem] text-on-dark">Maja Mrđen</span>
+                <span className="text-[10px] tracking-[0.3em] uppercase text-gold-light mt-1.5">Advokat · Žabalj</span>
+              </span>
+            </a>
+            <address className="not-italic text-sm leading-7 text-on-dark-2 mt-6">
+              {ADDRESS}
               <br />
-              062/153-68-12
-            </p>
+              <a href={PHONE_HREF} className="hover:text-gold-light transition-colors">
+                {PHONE_DISPLAY}
+              </a>
+              <br />
+              <a href={`mailto:${EMAIL}`} className="hover:text-gold-light transition-colors">
+                {EMAIL}
+              </a>
+            </address>
           </div>
 
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 lg:pt-3" aria-label="Podnožje">
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link">
+              <a key={link.href} href={link.href} className="footer-link">
                 {link.label}
               </a>
             ))}
           </nav>
 
-          <p
-            className="font-ui text-sm text-center lg:text-right"
-            style={{ color: "rgba(230,223,207,.7)", lineHeight: 1.8 }}
-          >
+          <p className="text-sm text-center lg:text-right leading-7 text-on-dark-3 lg:pt-2" suppressHydrationWarning>
             © {new Date().getFullYear()} Maja Mrđen Advokat
             <br />
             Sva prava zadržana
           </p>
         </div>
 
-        <div
-          className="mt-12 pt-8 overflow-hidden"
-          style={{ borderTop: "1px solid rgba(201,168,76,.10)" }}
-        >
-          <div
-            className="footer-watermark font-bold uppercase text-center"
-            style={{
-              fontSize: "clamp(3rem,8vw,8rem)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-            }}
-          >
-            Maja Mrđen
-          </div>
+        <div className="mt-14 pt-10 border-t border-white/10 overflow-hidden" aria-hidden="true">
+          <div className="footer-watermark">Maja Mrđen</div>
         </div>
       </div>
     </footer>

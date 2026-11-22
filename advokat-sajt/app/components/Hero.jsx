@@ -1,198 +1,129 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PhoneIcon } from "./icons";
+import { reduceMotion } from "./reveal";
+import { ADDRESS, HOURS_SHORT, MAPS_URL, PHONE_DISPLAY, PHONE_HREF } from "./site";
 
-export default function Hero({ showMobileCta }) {
+const INFO = [
+  { label: "Telefon", value: PHONE_DISPLAY, href: PHONE_HREF },
+  { label: "Adresa", value: ADDRESS, href: MAPS_URL, external: true },
+  { label: "Radno vreme", value: HOURS_SHORT },
+];
+
+export default function Hero() {
   const heroRef = useRef(null);
-  const heroSubRef = useRef(null);
-  const heroCtaRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    if (reduceMotion()) return; // CSS tada odmah prikazuje sve
+    const root = heroRef.current;
+    if (!root) return;
+    const q = (sel) => root.querySelectorAll(sel);
 
     const ctx = gsap.context(() => {
-      // ── Hero intro animacija ──
-      const heroTl = gsap.timeline({ delay: 0.2 });
-      heroTl
+      const tl = gsap.timeline({ delay: 0.25, defaults: { ease: "power3.out" } });
+      tl.fromTo(q(".hero-eyebrow-line"), { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "power3.inOut" })
+        .fromTo(q(".hero-eyebrow-text"), { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.9 }, "-=0.55")
+        // y: 0 poništava pomeraj iz CSS-a (translateY 110%), inače bi red ostao skriven ispod maske
         .fromTo(
-          ".hero-label",
-          { opacity: 0, x: -28 },
-          { opacity: 1, x: 0, duration: 1, ease: "power3.out" },
-        )
-        .to(
-          ".hero-line > span",
-          { y: 0, stagger: 0.14, duration: 1.3, ease: "power3.out" },
+          q(".hero-line > span"),
+          { yPercent: 110, y: 0 },
+          { yPercent: 0, y: 0, duration: 1.35, stagger: 0.14, ease: "power4.out" },
           "-=0.6",
         )
-        .fromTo(
-          heroSubRef.current,
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" },
-          "-=0.5",
-        )
-        .fromTo(
-          heroCtaRef.current,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.4",
-        )
-        .fromTo(
-          ".hero-scroll-indicator",
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6 },
-          "-=0.1",
-        );
-    });
+        // zlatni odsjaj pređe preko „sigurnost."
+        .add(() => root.querySelector(".text-gold-shine")?.classList.add("shine"), "-=0.75")
+        .fromTo(q(".hero-sub"), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, "-=0.85")
+        .fromTo(q(".hero-cta"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, "-=0.7")
+        .fromTo(q(".hero-info-item"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.12 }, "-=0.6");
+    }, root);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      {/* Scroll Progress */}
-      <div className="scroll-progress" />
-
-      {/* Mobile Floating CTA */}
-      <div
-        className={`mobile-cta md:hidden ${showMobileCta ? "" : "hidden-cta"}`}
-      >
-        <a
-          href="#kontakt"
-          className="btn-primary shadow-xl"
-          style={{ background: "#000" }}
-        >
-          <span>Zakaži termin</span>
-        </a>
+    <section ref={heroRef} className="hero" aria-label="Uvod">
+      {/* Pozadina: Temida (pravda) — neutralni grafitni ton, polako se približi pri otvaranju */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src="/hero-pravda.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          className="hero-img"
+        />
+        <div className="hero-shade" />
+        <div className="hero-vlines hidden md:block" />
       </div>
 
-      {/* ═══════ HERO — min-h-screen, slika i sadržaj ═══════ */}
-      <section
-        ref={heroRef}
-        className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-        style={{ background: "#030201" }}
-      >
-        {/* Background photo */}
-        <div
-          className="absolute inset-0 z-[0]"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?w=1800&q=80&fit=crop')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            opacity: 0.92,
-          }}
-        />
-
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0 z-[1]"
-          style={{
-            background:
-              "radial-gradient(ellipse 110% 100% at 60% 50%, rgba(10,8,5,0.32) 0%, rgba(10,8,5,0.72) 70%)",
-          }}
-        />
-
-        {/* Zlatni glow */}
-        <div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-[3]"
-          style={{
-            width: "72vw",
-            height: "72vw",
-            background:
-              "radial-gradient(circle, rgba(201,168,76,.07) 0%, rgba(201,168,76,.02) 40%, transparent 70%)",
-          }}
-        />
-
-        {/* Edge vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none z-[4]"
-          style={{
-            background:
-              "radial-gradient(ellipse 130% 100% at 50% 50%, transparent 45%, rgba(10,8,5,.6) 100%)",
-          }}
-        />
-
-        {/* Vertikalne linije */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-[3]">
-          {[1, 3].map((col) => (
-            <div
-              key={col}
-              className="absolute top-0 bottom-0 w-px"
-              style={{
-                left: `${col * 25}%`,
-                background:
-                  "linear-gradient(to bottom, transparent, rgba(201,168,76,.08) 25%, rgba(201,168,76,.08) 75%, transparent)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Sadržaj */}
-        <div className="relative z-[5] max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16 w-full">
-          <div
-            className="hero-label flex items-center gap-4 mb-10"
-            style={{ opacity: 0 }}
-          >
-            <div className="w-10 h-px bg-gold-vivid" />
-            <span
-              className="font-ui text-[0.8rem] tracking-[0.24em] uppercase"
-              style={{ color: "var(--gold-vivid)" }}
-            >
+      <div className="relative z-[2] flex flex-1 items-center">
+        <div className="max-w-7xl mx-auto w-full px-6 lg:px-12 pt-32 pb-14 lg:pt-24 lg:pb-10">
+          <div className="flex items-center gap-4 mb-8 lg:mb-10">
+            <span className="hero-eyebrow-line anim-line block w-8 sm:w-12 h-px bg-gold-light shrink-0" aria-hidden="true" />
+            <span className="hero-eyebrow-text anim-hide font-ui text-[0.64rem] tracking-[0.2em] sm:text-[0.72rem] sm:tracking-[0.32em] font-medium uppercase text-gold-light">
               Advokatska kancelarija · Žabalj
             </span>
           </div>
 
-          <div className="mb-8">
-            {[
-              { text: "Vaša pravna", italic: false },
-              { text: "sigurnost.", italic: true },
-              { text: "Naš prioritet.", italic: false },
-            ].map((line, i) => (
-              <div key={i} className="hero-line overflow-hidden">
-                <span
-                  className={`block font-display leading-[1.04] ${line.italic ? "italic" : ""}`}
-                  style={{
-                    fontSize: "clamp(2.9rem, 7.2vw, 7.8rem)",
-                    color: line.italic ? "var(--gold-vivid)" : "var(--cream)",
-                    transform: "translateY(110%)",
-                    letterSpacing: "-0.022em",
-                  }}
-                >
-                  {line.text}
-                </span>
-              </div>
-            ))}
-          </div>
+          <h1 className="hero-title mb-8 lg:mb-10">
+            <span className="hero-line">
+              <span>Vaša pravna</span>
+            </span>
+            <span className="hero-line">
+              <span className="italic text-gold-shine">sigurnost.</span>
+            </span>
+            <span className="hero-line">
+              <span>Naš prioritet.</span>
+            </span>
+          </h1>
 
-          <p
-            ref={heroSubRef}
-            className="font-body text-xl md:text-2xl max-w-lg leading-relaxed mb-10"
-            style={{ opacity: 0, color: "var(--cream-muted)" }}
-          >
+          <p className="hero-sub anim-hide max-w-xl text-[1.08rem] md:text-[1.18rem] leading-relaxed text-on-dark-2 mb-9 lg:mb-8">
             Predani zaštiti Vaših prava i interesa u svakom predmetu.
           </p>
 
-          <div
-            ref={heroCtaRef}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-10"
-            style={{ opacity: 0 }}
-          >
-            <div className="magnetic-wrap">
-              <a href="#kontakt" className="btn-primary btn-primary-pulse">
-                <span>Zakaži konsultaciju</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
+            <div className="hero-cta anim-hide">
+              <a href="#kontakt" className="btn btn-gold w-full sm:w-auto">
+                Zakažite konsultaciju
               </a>
             </div>
-            <a href="#usluge" className="btn-ghost">
-              <span className="btn-line" />
-              <span>Pogledaj usluge</span>
-            </a>
+            <div className="hero-cta anim-hide">
+              <a href={PHONE_HREF} className="btn btn-outline w-full sm:w-auto" aria-label={`Pozovite: ${PHONE_DISPLAY}`}>
+                <PhoneIcon />
+                {PHONE_DISPLAY}
+              </a>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-      </section>
-    </>
+      {/* Traka sa osnovnim podacima na dnu (tablet i računar) */}
+      <div className="relative z-[2] hidden md:block">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="hero-info grid grid-cols-3">
+            {INFO.map((item) => (
+              <div key={item.label} className="hero-info-item anim-hide">
+                <span className="hero-info-label">{item.label}</span>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    className="hero-info-value"
+                    {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    {item.value}
+                  </a>
+                ) : (
+                  <span className="hero-info-value">{item.value}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

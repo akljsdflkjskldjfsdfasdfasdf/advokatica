@@ -1,121 +1,81 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import gsap from "gsap";
-
-const NAV_LINKS = [
-  { label: "O meni", href: "#o-meni" },
-  { label: "Usluge", href: "#usluge" },
-  { label: "Proces", href: "#proces" },
-  { label: "Recenzije", href: "#recenzije" },
-  { label: "Kontakt", href: "#kontakt" },
-];
-
-/* ─── Google "G" icon (official brand colours, SVG) ─────────────────────── */
-
-
+import { PhoneIcon } from "./icons";
+import { ADDRESS, NAV_LINKS, PHONE_DISPLAY, PHONE_HREF } from "./site";
 
 export default function Navbar({ scrolled, activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Magnetic buttons
+  // otvoren meni: strana iza se ne skroluje, Esc zatvara
   useEffect(() => {
-    const handlers = [];
-    document.querySelectorAll(".magnetic-wrap").forEach((wrap) => {
-      const btn = wrap.querySelector("a, button");
-      if (!btn) return;
-      const move = (e) => {
-        const rect = wrap.getBoundingClientRect();
-        const x = (e.clientX - rect.left - rect.width / 2) * 0.28;
-        const y = (e.clientY - rect.top - rect.height / 2) * 0.28;
-        gsap.to(btn, { x, y, duration: 0.5, ease: "power2.out" });
-      };
-      const leave = () =>
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.65,
-          ease: "elastic.out(1,0.5)",
-        });
-      wrap.addEventListener("mousemove", move);
-      wrap.addEventListener("mouseleave", leave);
-      handlers.push({ el: wrap, move, leave });
-    });
-    return () =>
-      handlers.forEach(({ el, move, leave }) => {
-        el.removeEventListener("mousemove", move);
-        el.removeEventListener("mouseleave", leave);
-      });
-  }, []);
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
+  const close = () => setMenuOpen(false);
 
   return (
     <>
-      {/* ═══════ FULLSCREEN MOBILE MENU ═══════ */}
-      <div className={`mobile-menu-overlay ${menuOpen ? "open" : ""}`}>
-        <button
-          className="absolute top-6 right-6 p-3 text-cream-muted hover:text-gold-light transition-colors duration-300"
-          onClick={() => setMenuOpen(false)}
-          aria-label="Zatvori meni"
-        >
-          <span className="block w-6 h-px bg-current rotate-45 translate-y-px" />
-          <span className="block w-6 h-px bg-current -rotate-45 -translate-y-px" />
-        </button>
-
-        <nav className="flex flex-col items-center gap-8 mb-12">
+      {/* ═══════ MENI NA TELEFONU ═══════ */}
+      <div
+        id="mobilni-meni"
+        className={`mobile-menu-overlay lg:hidden ${menuOpen ? "open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav className="flex flex-col items-center gap-5" aria-label="Meni">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               className="menu-link"
-              onClick={() => setMenuOpen(false)}
+              onClick={close}
+              tabIndex={menuOpen ? 0 : -1}
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px"
-          style={{
-            background:
-              "linear-gradient(to right, transparent, rgba(201,168,76,.3) 30%, rgba(240,208,96,.5) 50%, rgba(201,168,76,.3) 70%, transparent)",
-          }}
-        />
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 font-ui text-[0.6rem] tracking-[0.24em] uppercase text-gold opacity-40">
-          Maja Mrđen · Advokat
+        <div className="flex flex-col items-center gap-4 text-center">
+          <a href={PHONE_HREF} className="btn btn-gold" onClick={close} tabIndex={menuOpen ? 0 : -1}>
+            <PhoneIcon />
+            {PHONE_DISPLAY}
+          </a>
+          <p className="text-sm tracking-wide text-on-dark-3">{ADDRESS}</p>
         </div>
       </div>
 
-      {/* ═══════ HEADER ═══════ */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-charcoal/97 border-b border-charcoal-400"
-            : "bg-transparent"
-        }`}
-        style={scrolled ? { boxShadow: "0 4px 40px rgba(0,0,0,0.75)" } : {}}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-[5.5rem]">
-          {/* ── Logo ── */}
-          <a href="#" className="flex items-center gap-4 group">
+      {/* ═══════ ZAGLAVLJE ═══════ */}
+      <header className={`site-header ${scrolled || menuOpen ? "is-scrolled" : ""}`}>
+        <div className="header-inner max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-6">
+          <a href="#" className="flex items-center gap-3.5 group" onClick={close}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- mali logo, već optimizovan PNG */}
             <img
-              src="/Maja_Mrdjen_LOGO_GOLD_Transparent-01.png"
-              alt="Mrđen Advokat"
-              className="h-16 md:h-[4.5rem] w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
-              style={{ filter: "drop-shadow(0 0 8px rgba(201,168,76,0.25))" }}
+              src="/logo-zlatni.png"
+              alt="Logo Mrđen advokat"
+              width={931}
+              height={744}
+              className="header-logo"
             />
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-2xl md:text-[1.7rem] text-cream tracking-wide group-hover:text-gold-light transition-colors duration-300">
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-[1.35rem] md:text-[1.5rem] text-on-dark tracking-wide transition-colors duration-300 group-hover:text-gold-light">
                 Maja Mrđen
               </span>
-              <span className="font-ui text-[10px] md:text-[11px] tracking-[0.25em] uppercase text-gold mt-1">
+              <span className="font-ui text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-gold-light mt-1.5">
                 Advokat · Žabalj
               </span>
-            </div>
+            </span>
           </a>
 
-          {/* ── Desktop nav ── */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+          <nav className="hidden lg:flex items-center gap-8 xl:gap-10" aria-label="Glavni meni">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -127,20 +87,28 @@ export default function Navbar({ scrolled, activeSection }) {
             ))}
           </nav>
 
-          {/* ── Mobile toggle ── */}
+          <a href={PHONE_HREF} className="header-phone hidden xl:inline-flex" aria-label={`Pozovite: ${PHONE_DISPLAY}`}>
+            <PhoneIcon />
+            {PHONE_DISPLAY}
+          </a>
+
+          {/* ☰ / ✕ */}
           <button
-            className="md:hidden flex flex-col gap-[5px] p-2 z-[210] relative"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Meni"
+            type="button"
+            className="lg:hidden flex flex-col justify-center gap-[6px] w-11 h-11 -mr-2 p-2.5"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? "Zatvori meni" : "Otvori meni"}
+            aria-expanded={menuOpen}
+            aria-controls="mobilni-meni"
           >
             <span
-              className={`block w-6 h-px transition-all duration-400 origin-center ${menuOpen ? "rotate-45 translate-y-[7px] bg-gold" : "bg-cream"}`}
+              className={`block h-px w-6 transition-all duration-500 origin-center ${menuOpen ? "translate-y-[7px] rotate-45 bg-gold-light" : "bg-on-dark"}`}
             />
             <span
-              className={`block h-px transition-all duration-400 ${menuOpen ? "opacity-0 w-6 bg-gold" : "w-4 bg-gold"}`}
+              className={`block h-px transition-all duration-500 ${menuOpen ? "w-6 opacity-0" : "w-4 bg-gold-light"}`}
             />
             <span
-              className={`block w-6 h-px transition-all duration-400 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px] bg-gold" : "bg-cream"}`}
+              className={`block h-px w-6 transition-all duration-500 origin-center ${menuOpen ? "-translate-y-[7px] -rotate-45 bg-gold-light" : "bg-on-dark"}`}
             />
           </button>
         </div>

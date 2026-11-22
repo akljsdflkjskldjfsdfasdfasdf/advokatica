@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReveal } from "./reveal";
 
 const STEPS = [
   {
@@ -30,147 +30,77 @@ const STEPS = [
 export default function Process() {
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-
-      gsap.utils.toArray(".section-glow").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, scale: 0.88 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 1.6,
-            ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 85%" },
-          },
-        );
-      });
-
-      gsap.utils.toArray(".fade-up").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 54 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1.05,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      });
-
-      gsap.utils.toArray(".stagger-group").forEach((group) => {
-        const children = group.querySelectorAll(".stagger-child");
-        gsap.fromTo(
-          children,
-          { opacity: 0, y: 38 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.14,
-            duration: 0.95,
-            ease: "power2.out",
-            scrollTrigger: { trigger: group, start: "top 82%" },
-          },
-        );
-      });
-
-      gsap.utils.toArray(".step-connector").forEach((line, i) => {
-        gsap.fromTo(
-          line,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 0.9,
-            delay: i * 0.25,
-            ease: "power2.inOut",
-            scrollTrigger: { trigger: ".process-steps-row", start: "top 76%" },
-          },
-        );
-      });
-    }, sectionRef); // samo elementi ove sekcije
-
-    return () => ctx.revert();
-  }, []);
+  useReveal(sectionRef, (root) => {
+    // rombovi se pojave jedan za drugim, linije između njih se iscrtaju
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: root.querySelector(".process-row"), start: "top 80%", once: true },
+    });
+    tl.fromTo(
+      root.querySelectorAll(".process-diamond"),
+      { opacity: 0, scale: 0.4 },
+      { opacity: 1, scale: 1, duration: 0.9, stagger: 0.18, ease: "back.out(1.7)" },
+    )
+      .fromTo(
+        root.querySelectorAll(".process-text"),
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.18, ease: "power3.out" },
+        0.15,
+      )
+      .fromTo(
+        root.querySelectorAll(".step-connector"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.8, stagger: 0.18, ease: "power2.inOut" },
+        0.45,
+      );
+  });
 
   return (
-    <section
-      ref={sectionRef}
-      id="proces"
-      className="relative py-20 lg:py-28 overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(160deg, #241e15 0%, #1d1910 50%, #221c13 100%)",
-      }}
-    >
+    <section ref={sectionRef} id="proces" className="sec-dark relative py-24 lg:py-32 overflow-hidden">
+      {/* blago svetlo odozgo (neutralno, bez braon tona) */}
       <div
-        className="section-glow absolute top-1/3 right-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
         style={{
-          width: "45vw",
-          height: "45vw",
           background:
-            "radial-gradient(ellipse at 100% 50%, rgba(201,168,76,.08) 0%, transparent 65%)",
+            "radial-gradient(60% 55% at 50% 0%, rgba(255,255,255,.06) 0%, transparent 70%), radial-gradient(40% 40% at 100% 100%, rgba(201,162,76,.07) 0%, transparent 70%)",
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="text-center mb-14">
-          <p className="section-label fade-up mb-6 justify-center">
-            Kako radimo
-          </p>
-          <h2 className="section-heading fade-up">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="text-center mb-16 lg:mb-20">
+          <p className="eyebrow centered fade-up mb-6">Kako radimo</p>
+          <h2 className="h-section fade-up">
             Jednostavan proces,
             <br />
-            <em className="not-italic" style={{ color: "var(--gold-vivid)" }}>
-              jasni rezultati
-            </em>
+            <span className="accent">jasni rezultati</span>
           </h2>
         </div>
 
-        <div className="process-steps-row stagger-group relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="process-row relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-14">
+          {/* linije između rombova (samo računar) — od ivice jednog romba do ivice sledećeg */}
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="step-connector hidden lg:block absolute top-10"
+              className="step-connector hidden lg:block"
+              aria-hidden="true"
               style={{
-                left: `calc(${(i + 1) * 25}% - 0px)`,
-                width: "calc(25% - 6rem)",
-                height: "1px",
-                background:
-                  "linear-gradient(to right, rgba(201,168,76,.45), rgba(201,168,76,.12))",
-                transformOrigin: "left center",
+                left: `calc(${i} * (25% + 0.5rem) + 12.5% + 3.45rem)`,
+                width: "calc(25% - 7.9rem)",
               }}
             />
           ))}
 
           {STEPS.map((step) => (
-            <div
-              key={step.num}
-              className="stagger-child process-step text-center group"
-            >
-              <div className="process-step-diamond mx-auto mb-7">
-                <span className="step-num-text">{step.num}</span>
+            <div key={step.num} className="process-step text-center">
+              <div className="process-diamond anim-hide">
+                <span className="step-num">{step.num}</span>
               </div>
-              <h3
-                className="font-display text-2xl mb-3 group-hover:text-gold-light transition-colors duration-300"
-                style={{ color: "var(--cream)" }}
-              >
-                {step.title}
-              </h3>
-              <p
-                className="font-body text-lg leading-relaxed"
-                style={{ color: "var(--cream-muted)" }}
-              >
-                {step.desc}
-              </p>
+              <div className="process-text anim-hide">
+                <h3 className="font-display text-[1.5rem] leading-tight text-on-dark mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-[0.98rem] leading-relaxed text-on-dark-2 max-w-xs mx-auto">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>

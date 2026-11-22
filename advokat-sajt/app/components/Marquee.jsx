@@ -1,5 +1,3 @@
-"use client";
-
 const MARQUEE_ITEMS = [
   "Krivično pravo",
   "Porodično pravo",
@@ -12,38 +10,18 @@ const MARQUEE_ITEMS = [
   "Upravno pravo",
 ];
 
+// 4 kopije: traka se pomera za pola dužine pa se neprimetno ponavlja i na širokim ekranima
+const ITEMS = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+
 export default function Marquee() {
+  // samo ukras — iste oblasti su ispod u „Oblasti prakse", pa ih čitač ekrana ne čita 36 puta
   return (
-    <div
-      className="overflow-hidden border-y py-4"
-      style={{
-        background: "linear-gradient(to right, #1c1608, #231c0e, #1c1608)",
-        borderColor: "rgba(201,168,76,.18)",
-        boxShadow:
-          "inset 0 1px 0 rgba(201,168,76,.14), inset 0 -1px 0 rgba(201,168,76,.08)",
-      }}
-    >
+    <div className="marquee" aria-hidden="true">
       <div className="marquee-track">
-        {[
-          ...MARQUEE_ITEMS,
-          ...MARQUEE_ITEMS,
-          ...MARQUEE_ITEMS,
-          ...MARQUEE_ITEMS,
-        ].map((item, i) => (
-          <span
-            key={i}
-            className="font-display italic text-lg px-8 flex-shrink-0"
-            style={{
-              color: i % 2 === 0 ? "var(--gold-vivid)" : "var(--cream-muted)",
-            }}
-          >
+        {ITEMS.map((item, i) => (
+          <span key={i} className="marquee-item">
             {item}
-            <span
-              className="ml-8 not-italic text-sm"
-              style={{ color: "var(--charcoal-500)" }}
-            >
-              ◆
-            </span>
+            <span className="marquee-sep" />
           </span>
         ))}
       </div>
